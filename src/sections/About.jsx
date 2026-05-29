@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Globe } from "../components/Globe";
+import { Globe } from "../components/globe";
 import CopyEmailButton from "../components/CopyEmailButton";
 import { TechStack } from "../components/TechStack";
 
