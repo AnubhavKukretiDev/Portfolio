@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Core palette — near-black ink base, not pure #000 */
+  --color-primary:   #04040f;
+  --color-midnight:  #07071a;
+  --color-navy:      #0e0e26;
+  --color-indigo:    #151530;
+  --color-storm:     #1e1e40;
+
+  /* Accent spectrum */
+  --color-aqua:      #2ee8c5;
+  --color-mint:      #57db96;
+  --color-royal:     #5c3fd4;
+  --color-lavender:  #7b5ce6;
+  --color-fuchsia:   #d63aae;
+  --color-orange:    #e07040;
+  --color-sand:      #d6995c;
+  --color-coral:     #f04a8a;
+
+  /* Orbit animation */
+  --animate-orbit: orbit 50s linear infinite;
+  @keyframes orbit {
+    0%   { transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg)); }
+    100% { transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg)); }
+  }
+
+  /* Marquee animations */
+  --animate-marquee:          marquee 50s linear infinite;
+  --animate-marquee-vertical: marquee-vertical 50s linear infinite;
+  @keyframes marquee         { from { transform: translateX(0); }                       to { transform: translateX(calc(-100% - var(--gap))); } }
+  @keyframes marquee-vertical{ from { transform: translateY(0); }                       to { transform: translateY(calc(-100% - var(--gap))); } }
+
+  /* Shimmer for skeleton/highlights */
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  /* Subtle float */
+  --animate-float: float 6s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+  }
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #04040f;
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  color: #e2e2f0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Selection ─────────────────────────────────────────────────────────── */
+::selection { background: rgba(92, 63, 212, 0.35); color: #fff; }
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #04040f; }
+::-webkit-scrollbar-thumb { background: rgba(92, 63, 212, 0.4); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(92, 63, 212, 0.7); }
+
+/* ─── Layout utilities ──────────────────────────────────────────────────── */
+.c-space         { @apply px-5 sm:px-10 lg:px-16; }
+.section-spacing { @apply pt-28 md:pt-36 pb-12; }
+
+/* ─── Typography ────────────────────────────────────────────────────────── */
+.text-heading {
+  font-family: "DM Serif Display", serif;
+  @apply text-3xl md:text-5xl font-normal tracking-tight text-white;
+}
+.text-label {
+  @apply text-xs font-medium tracking-[0.2em] uppercase text-white/40;
+}
+.headtext { @apply text-xl font-semibold text-white leading-snug; }
+.subtext  { @apply text-sm md:text-base text-white/50 leading-relaxed; }
+
+/* ─── Motion helpers ────────────────────────────────────────────────────── */
+.hover-lift { @apply transition-transform duration-300 ease-out hover:-translate-y-1; }
+
+/* ─── Glass card ────────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ─── Gradient text ─────────────────────────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 40%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-text-cyan {
+  background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Navigation ────────────────────────────────────────────────────────── */
+.nav-ul   { @apply flex flex-col items-center gap-1 sm:flex-row sm:gap-1 relative z-20; }
+.nav-li   { @apply text-white/50 hover:text-white rounded-lg transition-colors duration-200; }
+.nav-link { @apply text-sm font-medium px-4 py-2 block; }
+
+/* ─── Form ──────────────────────────────────────────────────────────────── */
+.field-label {
+  @apply block text-xs font-medium tracking-wide text-white/50 mb-2 uppercase;
+}
+.field-input {
+  @apply w-full rounded-xl px-4 py-3 text-sm bg-white/[0.04] border border-white/[0.08]
+         text-white placeholder:text-white/25 transition duration-200 outline-none;
+}
+.field-input:focus {
+  border-color: rgba(92, 63, 212, 0.5);
+  box-shadow: 0 0 0 3px rgba(92, 63, 212, 0.12);
+}
+
+/* ─── About grid helpers (kept for any legacy references) ───────────────── */
+/* Grid layout is now handled via inline Tailwind in About.jsx             */
+
+/* ─── Shimmer button ────────────────────────────────────────────────────── */
+.btn-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 33.33%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 66.66%
+  );
+  background-size: 300% 100%;
+  animation: var(--animate-shimmer);
+}
